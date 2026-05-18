@@ -1,0 +1,194 @@
+1. Understand the Big Picture
+Project Purpose: What business problem does it solve? Who are the users?
+Architecture Overview: Is it monolithic, microservices, layered? Draw a high-level diagram.
+Tech Stack: .NET (C#), Entity Framework, gRPC, SQL Server, JWT Auth, etc.
+
+
+2. Get the Basics Right
+.NET & C# Fundamentals: Classes, interfaces, async/await, dependency injection.
+Entity Framework Core: Code-first, migrations, DbContext, LINQ queries.
+gRPC Services: What is gRPC? How are services and messages defined and consumed?
+REST vs gRPC: Know the difference and why gRPC is used here.
+
+
+3. Project Structure & Key Components
+Solution Layout: Understand the folder structure (Entities, Api, Services, Configurations, etc.).
+Core Entities: Learn about main models like TransferPharmacy, Customer, InventoryItem.
+Configurations: How are entities mapped to DB? (Fluent API, shadow properties, triggers)
+Service Layer: How does WebApiService work? What are the main methods (CRUD, business logic)?
+Authentication: How JWT tokens are used, how claims are mapped to user context.
+
+
+4. Deep Dive into Features
+Multi-Tenancy: How TenantId and TenantStoreId are handled (shadow properties, filters).
+Audit Fields: How CreatedBy, UpdatedBy, etc. are set.
+Error Handling: How are errors logged and returned to clients?
+Database Triggers: Why are they used? How does EF Core handle them?
+
+
+5. Advanced Topics
+Performance: How are queries optimized? Are there indexes, caching, or async patterns?
+Security: How is data protected? (JWT, claims, role checks)
+Testing: What unit/integration tests exist? How are they structured?
+Deployment: How is the app built, tested, and deployed? (CI/CD, environments)
+
+
+6. Prepare for Interview Questions
+Explain the architecture and your role.
+Describe a challenging bug and how you fixed it.
+How does multi-tenancy work in this project?
+How are database triggers handled with EF Core?
+How is authentication and authorization managed?
+How do you ensure data integrity and security?
+
+
+7. Hands-On Practice
+Run the Project Locally: Build, run, and debug. Try sample API/gRPC calls.
+Trace a Request: Follow a request from controller/service to DB and back.
+Modify a Feature: E.g., add a new field, fix a bug, or write a test.
+
+
+8. Documentation & Communication
+Read the README and any internal docs.
+Document your own learning and explanations.
+Practice explaining the project to a non-technical person.
+
+
+9. Mock Interview
+Have a friend or mentor ask you questions.
+Practice whiteboarding the architecture.
+Prepare STAR (Situation, Task, Action, Result) stories for your contributions.
+Tip: Focus on understanding, not memorizing. Be ready to explain “why” as well as “how.”
+
+If you want, I can generate a custom study plan, sample interview answers, or a project summary for you—just ask!
+============================================================================================================================
+Project Summary:
+
+This project is a multi-tenant pharmacy management platform built with .NET Core, Entity Framework Core, and gRPC. It enables pharmacies to manage prescription transfers, customer data, inventory, and related workflows in a secure, scalable environment.
+
+The backend is structured as a set of microservices, with gRPC APIs handling communication between services and clients. Entity Framework Core is used for data access, supporting advanced features like shadow properties and database triggers to ensure data integrity and auditability.
+
+Authentication is managed via JWT tokens, with user and tenant context extracted from claims to enforce data isolation and security. The system supports audit fields (CreatedBy, UpdatedBy, etc.) and multi-tenancy (TenantId, TenantStoreId) to ensure each pharmacy’s data is kept separate and secure.
+
+Key features include:
+
+Secure, multi-tenant data management for pharmacies
+Support for prescription transfer workflows
+Integration with external systems via gRPC
+Robust audit logging and error handling
+Scalable architecture ready for cloud deployment
+My role involved understanding and improving core business logic, fixing multi-tenancy and audit issues, and ensuring the system’s security and reliability.
+
+
+
+
+
+
+===========================topics================================
+1. .NET Core (C#) Fundamentals
+What to Learn:
+
+What is .NET Core? (A cross-platform framework for building applications)
+C# basics: classes, interfaces, properties, methods, async/await, dependency injection.
+Project structure: Solutions (.sln), projects (.csproj), folders.
+How to Explain:
+“.NET Core is the main framework for our backend. We use C# to write all our business logic, organize code into classes and interfaces, and use dependency injection to manage services and configurations.”
+
+2. Entity Framework Core (EF Core)
+What to Learn:
+
+What is an ORM? (Object-Relational Mapper: maps C# classes to database tables)
+Code-first approach: define models in code, generate DB schema via migrations.
+DbContext: the main class for querying and saving data.
+LINQ: a way to write queries in C#.
+Shadow properties: properties in the DB but not in the C# class.
+Migrations: how to update the database schema as code changes.
+How to Explain:
+“EF Core lets us work with the database using C# objects. We define our entities (like TransferPharmacy) as classes, and EF Core handles the SQL for us. We use migrations to keep the database schema in sync with our code.”
+
+3. gRPC
+What to Learn:
+
+What is gRPC? (A high-performance, strongly-typed way for services to talk to each other)
+Protobuf: the language for defining messages and services.
+How to define a service and implement it in C#.
+How gRPC differs from REST (binary, faster, contract-first).
+How to Explain:
+“gRPC is how our services communicate. We define service contracts in .proto files, generate C# code, and implement the logic. It’s faster and more efficient than REST, especially for internal service-to-service calls.”
+
+4. SQL Server & Database Triggers
+What to Learn:
+
+What is SQL Server? (A relational database)
+Tables, columns, primary keys, foreign keys.
+What is a trigger? (A piece of code that runs automatically when data changes)
+Why triggers can cause issues with EF Core (OUTPUT clause error).
+How to Explain:
+“We use SQL Server to store our data. Some tables have triggers, which are bits of code that run when rows are inserted or updated. EF Core needs to know about these triggers to avoid certain SQL errors.”
+
+5. Multi-Tenancy
+What to Learn:
+
+What is multi-tenancy? (Supporting multiple customers/organizations in one app)
+How TenantId and TenantStoreId are used to separate data.
+How EF Core filters data by tenant.
+How to Explain:
+“Our app supports multiple pharmacies (tenants). Each record has a TenantId and TenantStoreId, so data is always filtered to the right organization. This keeps data secure and separated.”
+
+6. Authentication & Authorization (JWT)
+What to Learn:
+
+What is JWT? (JSON Web Token: a secure way to prove who a user is)
+How claims work (pieces of info in the token, like username, tenantId).
+How the backend reads claims and uses them for security.
+How to Explain:
+“We use JWT tokens for authentication. When a user logs in, they get a token with their info. The backend reads this token to know who the user is and what data they can access.”
+
+7. Audit Logging
+What to Learn:
+
+What are audit fields? (CreatedBy, UpdatedBy, CreatedOn, UpdatedOn)
+Why are they important? (Tracking who changed what and when)
+How are they set in code (from user context).
+How to Explain:
+“Every time a record is created or updated, we save who did it and when. This helps with security, compliance, and debugging.”
+
+8. Error Handling & Logging
+What to Learn:
+
+How errors are caught and logged.
+How error messages are returned to clients.
+Why logging is important (troubleshooting, monitoring).
+How to Explain:
+“We catch errors in our service methods, log them for later review, and return clear error messages to the client. This helps us quickly find and fix issues.”
+
+9. Testing
+What to Learn:
+
+What are unit tests and integration tests?
+How to write a simple test in .NET.
+Why testing is important (quality, reliability).
+How to Explain:
+“We write tests to make sure our code works as expected. Unit tests check small pieces, while integration tests check how everything works together.”
+
+10. Deployment & DevOps
+What to Learn:
+
+How the app is built and deployed (CI/CD pipelines, environments).
+What is cloud deployment? (Azure, AWS, etc.)
+How to Explain:
+“We use automated pipelines to build, test, and deploy our app. This ensures new changes are delivered quickly and safely.”
+
+Interview Preparation Tips
+Be ready to explain each area in your own words.
+Practice tracing a request from the client to the database and back.
+Prepare to answer: “What was the hardest bug you fixed?” and “How does multi-tenancy work here?”
+Review the project’s README and any diagrams/documentation.
+If you want, I can provide:
+
+Example interview questions and answers for each area
+Diagrams or code samples for any topic
+A checklist to track your learning
+Let me know which area you want to dive into first, or if you want sample Q&A!
+
+GPT-4.1 • 0x
